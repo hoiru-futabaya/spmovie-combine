@@ -19,6 +19,6 @@ print(rotate["tags"]["rotate"])
 
 input = ffmpeg.input(path)
 
-out = ffmpeg.output(input, "test.mp4")
+out = ffmpeg.output(input, "test.mp4", transpose=1, -metadata:s:v:0 ,rotate=0)
 
 ffmpeg.run(out)
