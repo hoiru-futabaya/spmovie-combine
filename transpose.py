@@ -26,7 +26,7 @@ x = w / 9 * 16
 a = x - h 
 
 input = input.filter('transpose', 1)
-input = input.filter('pad', 0, x, 0, a/2, 'gray')
+input = input.filter('pad', 0, x, 0, a/2, 'black')
 input = input.filter('scale', -1, 1920)
 
 out =ffmpeg.output(input, audio, 'test.mp4')
