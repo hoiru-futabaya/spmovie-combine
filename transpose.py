@@ -11,11 +11,24 @@ input = ffmpeg.input(path)
 
 audio = input.audio
 
-PAD_OPTIONS={'width':'2000','height':'2000','padright':'606','padleft':'606','color':'Black'}
+info = ffmpeg.probe(path)
+
+video_info = next((stream for stream in info['streams'] if stream['codec_type'] == 'video'), None)
+
+w = video_info['width']
+h = video_info['height']
+r = video_info['tags']['rotate']
+
+print(str(w) + ',' + str(h) + ',' + str(r))
+
+x = w / 9 * 16
+
+a = x - h 
+
 input = input.filter('transpose', 1)
-input = input.filter('scale', 608, -1)
-#input = input.filter('pad',PAD_OPTIONS)
+input = input.filter('pad', 0, x, 0, a/2, 'gray')
+input = input.filter('scale', -1, 1920)
 
 out =ffmpeg.output(input, audio, 'test.mp4')
 
-ffmpeg.run(out)
+ffmpeg.run(out, overwrite_output=True)
