@@ -20,7 +20,8 @@ fcount = len(os.listdir(folder))
 print(fcount)
 
 for i in range(fcount):
-        path = folder + str(i+1) + '.mp4'
+        number = str(i+1)
+        path = folder + number.zfill(3) + '.mp4'
         os.chmod(path, 0777)
         input = ffmpeg.input(path)
         audio = input.audio
