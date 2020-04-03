@@ -2,6 +2,7 @@
 # coding: utf8
 import ffmpeg
 import os
+import subprocess
 
 text = 'concat.txt'
 
@@ -57,5 +58,6 @@ for i in range(fcount):
                         f.write(textc)
 
 else:
-        ffmpeg.input('concat.txt', f='concat', safe=0).output('out.mp4', c='copy').run()
+	cmd = ['ffmpeg', '-y', '-safe', '0', '-f', 'concat', '-i', 'concat.txt', '-c:v', 'copy', '-c:a', 'copy', '-c:s', 'copy', '-map', '0:v', '-map', '0:a', '-map', '0:s?', 'out.mp4']
 
+	subprocess.Popen(cmd)
